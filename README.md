@@ -24,3 +24,8 @@ This is a Assigment in which all types of linked lists are implemented
 1. Insertion (at First, Last and nth Position)
 2. Deletion (at First, Last and nth Position)
 3. Searching
+
+
+# 🔴 Instructions
+1. Downlaod main.py, functions.py and main.exe
+2. Put main.exe in same folder as funtion.py and run main.exe
