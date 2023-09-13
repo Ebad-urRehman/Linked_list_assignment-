@@ -602,6 +602,213 @@ class Singly_cir_Node(Singly_Cir_Linked_List):
 
 
 
+class Doubly_Cir_Linked_List:
+    # link list from user
+    def __init__(self):
+        self.head = None
+
+    def get_linklist(self, total_nodes, count):
+        for n in range(total_nodes):
+            data = input(f"Please Enter data of node {n + 1}\n")
+            newnode = Doubly_cir_Node(data)
+            if not self.head:
+                self.head = newnode
+                newnode.next = self.head
+                newnode.previous = None
+                count[0] += 1
+            elif self.head.next is None:
+                self.head.next = newnode
+                newnode.previous = self.head
+                count[0] += 1
+            else:
+                current = self.head
+                while current.next != self.head:
+                    current = current.next
+                current.next = newnode
+                newnode.next = self.head
+                self.head.previous = newnode
+                newnode.previous = current
+                count[0] += 1
+
+    def print_list(self, count):
+        current = self.head
+        print(f"Last Node = ({self.head.previous.data})", end="<-->")
+        while current.next != self.head:
+            print(current.data, end=" <--> ")
+            current = current.next
+        print(current.data, end="")
+        print(f"<-->First = {current.next.data}")
+        print(f"Total Nodes {count[0]}")
+        # print(node_count)
+
+    def print_list_rev(self):
+        current = self.head
+        # finding last node
+        formatted_string = []
+        while current.next != self.head:
+            current = current.next
+        last_node = current.data
+        formatted_string.append(f"First Node = ({self.head.data})<-->")
+        while current is not self.head:
+            formatted_string.append(f"{current.data}<-->")
+            current = current.previous
+        if current is self.head:
+            formatted_string.append(f"{current.data}")
+        formatted_string.append(f"Last Node = {last_node}")
+        print("".join(formatted_string))
+
+
+    def insert_node(self, pos, data, count):
+        pos = int(pos) - 1
+        current = self.head
+        if pos == 0:
+            # creating a new node
+            newnode = Doubly_cir_Node(data)
+            # saving first node
+            nextnode = current
+            # approaching last node so we give self.head to its next
+            while current.next != self.head:
+                current = current.next
+            # connecting last node to first and first to second(nextnode)
+            self.head = newnode
+            current.next = self.head
+            newnode.next = nextnode
+            # as current is last node
+            newnode.previous = current
+            # storing the new node in preivous of next node
+            nextnode.previous = newnode
+            count[0] += 1
+
+
+        # last position
+        elif pos + 1 == count[0]:
+            newnode = Doubly_cir_Node(data)
+            current = self.head
+            while current.next.next != self.head:
+                current = current.next
+            nextnode = current.next
+            current.next = newnode
+            newnode.next = nextnode
+            nextnode.previous = newnode
+            self.head.previous = nextnode
+            nextnode.next = self.head
+            count[0] += 1
+
+        # last position + 1
+        elif pos == count[0]:
+            newnode = Doubly_cir_Node(data)
+            current = self.head
+            while current.next != self.head:
+                current = current.next
+            current.next = newnode
+            newnode.next = self.head
+            self.head.previous = newnode
+            newnode.previous = current
+            count[0] += 1
+        # after last position
+        elif pos + 1 > count[0]:
+            print("Over flow")
+        # before first position
+        elif pos + 1 < 1:
+            print("Under flow")
+        # nth position
+        else:
+            newnode = Doubly_cir_Node(data)
+            for n in range(pos - 1):
+                current = current.next
+            # saving the node at position to insert
+            nextnode = current.next
+            # adding new node to next of previous node
+            current.next = newnode
+            # adding saved node as next node in front of node inserted
+            newnode.next = nextnode
+            nextnode.previous = newnode
+            newnode.previous = current
+            count[0] += 1
+            # node_count += 1
+
+    def insert_node_last(self, data, count):
+        newnode = Doubly_cir_Node(data)
+        current = self.head
+        while current.next != self.head:
+            current = current.next
+        current.next = newnode
+        newnode.next = self.head
+        self.head.previous = newnode
+        newnode.previous = current
+        count[0] += 1
+
+    def del_node(self, pos, count):
+        current = self.head
+        pos = int(pos) - 1
+        if current.next is self.head:
+            print("The only node in list is deleted")
+            self.head = None
+        # deleting from first position
+        elif pos == 0:
+            while current.next != self.head:
+                current = current.next
+            current.next = self.head.next
+            self.head = current.next
+            self.head.previous = current
+            count[0] -= 1
+        # deleting from last node
+        elif pos + 1 == count[0]:
+            current = self.head
+            while current.next.next != self.head:
+                current = current.next
+            current.next = self.head
+            self.head.previous = current
+            count[0] -= 1
+        elif pos + 1 > count[0]:
+            print("Overflow")
+        elif pos + 1 < 1:
+            print("Underflow")
+        # deleting from n position
+        else:
+            for n in range(pos - 1):
+                current = current.next
+            nextnode = current.next.next
+            current.next = nextnode
+            nextnode.previous = current
+            count[0] -= 1
+    #
+    def del_node_end(self, count):
+        current = self.head
+        if current.next is self.head:
+            print("The only node in list is deleted")
+            self.head = None
+        while current.next.next != self.head:
+            current = current.next
+        current.next = self.head
+        self.head.previous = current
+        count[0] -= 1
+
+    def search_list_pos(self, data, count):
+        current = self.head
+        for n in range(int(count[0])):
+            if current.data == data:
+                pos = n + 1
+                return pos
+            current = current.next
+        print("value not found")
+
+    def search_list_ele(self, pos):
+        current = self.head
+        pos = int(pos) - 1
+        for n in range(pos):
+            current = current.next
+        print(current.data)
+
+# creating this class child class so we assign newnode to self.head every time we created a new node
+class Doubly_cir_Node(Singly_Cir_Linked_List):
+    # calling the constructor and assigning data to node
+    def __init__(self, data):
+        super().__init__()  # Call the parent class constructor
+        self.data = data
+        self.next = self.head
+        self.previous = None
+
 
 if __name__ == "__main__":
     pass

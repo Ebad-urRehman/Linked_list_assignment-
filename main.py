@@ -1,4 +1,4 @@
-from functions import Node, Singly_Linked_List, Doubly_Linked_List, Singly_Cir_Linked_List
+from functions import Singly_Linked_List, Doubly_Linked_List, Singly_Cir_Linked_List, Doubly_Cir_Linked_List
 
 # count variable to keep track of no of node of all lists
 s_count = [0]
@@ -505,6 +505,7 @@ E. Exit
                                 case _:
                                     print("Please Enter a Correct value Lower and upper cases both are allowed")
 
+
                     case 'E':
                         break
 
@@ -512,3 +513,131 @@ E. Exit
                         print("Please Enter a Correct value Lower and upper cases both are allowed")
                 count_text = str(s_count).replace('[', '').replace(']', '')
                 print(f"total node = {count_text}")
+
+        case '4':
+            Doubly_cir_Menu = """
+----------Main Menu----------
+Which operation you want to perform on your List : 
+-> I for Insert(Insert new element at desired position)
+-> Q for search an element in List
+-> D for deleting an element
+"""
+            # creating empty list and getting data
+            my_list = Doubly_Cir_Linked_List()
+            my_list.get_linklist(total_nodes, dc_count)
+            print("Your Linked list is : \n")
+            my_list.print_list(dc_count)
+            print(f"Total Nodes : {dc_count[0]}")
+
+            while True:
+                print("-------------DOUBLY CIRCULAR LINK LIST-------------")
+
+                my_list.print_list(dc_count)
+                print(f"Total Nodes : {dc_count[0]}")
+
+                my_list.print_list_rev()
+                print(f"Above is Reverse Order of Doubly circular linked list")
+
+                choice = input(Doubly_cir_Menu)
+                choice = choice.capitalize()
+                match choice:
+                    case 'I':
+
+                        insert_msg = """\
+----------Insertion Menu-----------
+Where you want to insert the element
+F. At First Press F
+L. At Last Press L
+N. At nth Position Press N
+E. For Exit
+"""
+                        while True:
+                            ins_choice = input(insert_msg)
+                            ins_choice = ins_choice.capitalize()
+                            match ins_choice:
+                                case 'F':
+                                    data = input("Enter the node data you want to input at First position")
+                                    my_list.insert_node(1, data, dc_count)
+                                    my_list.print_list(dc_count)
+
+                                case 'L':
+                                    data = input("Enter the node data you want to input at Last position")
+                                    my_list.insert_node_last(data, dc_count)
+                                    my_list.print_list(dc_count)
+
+                                case 'N':
+                                    pos = input("On which position you want to insert the node")
+                                    data = input(f"Enter the node data you want to input at {pos} position")
+                                    my_list.insert_node(pos, data, dc_count)
+                                    my_list.print_list(dc_count)
+                                case 'E':
+                                    break
+
+                    case 'Q':
+                        search_msg = """\
+How you want to search the element
+S. Search by element(Enter a element to found its position)
+P. Search by position(Enter a position to check data on that position)
+E. Exit\n"""
+                        while True:
+                            search_choice = input(search_msg)
+                            search_choice = search_choice.capitalize()
+                            match search_choice:
+                                case 'S':
+                                    print("The elements in your list are")
+                                    my_list.print_list(dc_count)
+                                    data = input("Enter value of the element to find its position")
+                                    pos = my_list.search_list_pos(data, dc_count)
+                                    print(f"{data} found at position {pos}")
+
+                                case 'P':
+                                    print("The elements in your list are")
+                                    my_list.print_list(dc_count)
+                                    pos = input("Enter position to find data at that position : ")
+                                    data = my_list.search_list_ele(pos)
+                                case 'E':
+                                    break
+                                case _:
+                                    print("Please Enter a Correct value Lower and upper cases both are allowed : ")
+
+                    case 'D':
+                        del_msg = """\
+----------Deletion Menu-----------
+From where you want to delete the element
+F. At First Press F
+L. At Last Press L
+N. At nth Position Press N
+E. Exit
+"""
+                        while True:
+                            del_choice = input(del_msg)
+                            del_choice = del_choice.capitalize()
+                            print("The elements in your list are")
+                            my_list.print_list(dc_count)
+                            match del_choice:
+                                case 'F':
+                                    my_list.del_node(1, dc_count)
+                                    print("First element Deleted : ")
+                                    my_list.print_list(dc_count)
+                                case 'L':
+                                    my_list.del_node_end(dc_count)
+                                    print("Last element Deleted : ")
+                                    my_list.print_list(dc_count)
+                                case 'N':
+                                    pos = input("Enter a position to delete value from : ")
+                                    my_list.del_node(pos, dc_count)
+                                    print(f"{pos} element deleted")
+                                    my_list.print_list(dc_count)
+                                case 'E':
+                                    break
+                                case _:
+                                    print("Please Enter a Correct value Lower and upper cases both are allowed")
+
+                    case 'E':
+                        break
+
+                    case _:
+                        print("Please Enter a Correct value Lower and upper cases both are allowed")
+                count_text = str(s_count).replace('[', '').replace(']', '')
+                print(f"total node = {count_text}")
+
