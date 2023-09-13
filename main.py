@@ -29,7 +29,6 @@ Which operation you want to perform on your List :
 M for Merge(Add new List to existing List at last)
 T for Edit(Edit Old element from your desired position)
 A for append(Add a new element at last)
-X for deleting the whole List
 E for Exit to list menu
 """
 
@@ -447,10 +446,10 @@ E. For Exit
 
                     case 'Q':
                         search_msg = """\
-        How you want to search the element
-        S. Search by element(Enter a element to found its position)
-        P. Search by position(Enter a position to check data on that position)
-        E. Exit\n"""
+How you want to search the element
+S. Search by element(Enter a element to found its position)
+P. Search by position(Enter a position to check data on that position)
+E. Exit\n"""
                         while True:
                             search_choice = input(search_msg)
                             search_choice = search_choice.capitalize()
