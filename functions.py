@@ -65,10 +65,19 @@ class Singly_Linked_List:
         elif pos + 1 == count[0]:
             newnode = Node(data)
             current = self.head
+            while current.next.next is not None:
+                current = current.next
+            nextnode = current.next
+            current.next = newnode
+            newnode.next = nextnode
+            count[0] += 1
+        # last position + 1
+        elif pos == count[0]:
+            newnode = Node(data)
+            current = self.head
             while current.next is not None:
                 current = current.next
             current.next = newnode
-            newnode.previous = current
             count[0] += 1
         # after last position
         elif pos + 1 > count[0]:
@@ -123,7 +132,7 @@ class Singly_Linked_List:
                 current = current.next
             nextnode = current.next.next
             current.next = nextnode
-        count[0] -= 1
+            count[0] -= 1
 
     def del_node_end(self, count):
         current = self.head
